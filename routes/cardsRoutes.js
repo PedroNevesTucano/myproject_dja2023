@@ -63,4 +63,22 @@ router.post("/",
         }
     });
 
+router.get('/filter', async function (req, res, next) {
+    try {
+        console.log("Filter cards");
+        if (req.query.typeId) {
+            let result = await Card.filterByType(req.query.typeId);
+            res.status(result.status).send(result.result);
+        } else if (req.query.descContains) {
+            let result = await Card.filterByLoreOrDescription(req.query.descContains);
+            res.status(result.status).send(result.result);
+        } else {
+            res.status(400).send({ msg: "No filter provided" });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send(err);
+    }
+});
+
 module.exports = router;
