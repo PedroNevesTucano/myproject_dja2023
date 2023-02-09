@@ -71,6 +71,20 @@ class Card {
             return { status: 500, result: err };
         }
     }
+    static async filterByType(typeId) {
+        try {
+            let result = [];
+            let [dbCards, fields] =
+                await pool.query("Select * from cards where crd_type=?", [typeId]);
+            for (let dbCard of dbCards) {
+                result.push(cardFromDB(dbCard));
+            }
+            return { status: 200, result: result };
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
 }
 
 module.exports = Card;
