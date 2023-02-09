@@ -44,6 +44,7 @@ router.get('/:id', async function (req, res, next) {
     }
 });
 
+const { body, validationResult } = require('express-validator');
 const cardValidations = [
     body('name').isLength({ min: 4, max: 60 })
         .withMessage('Name must have between 4 and 60 characters'),
@@ -53,7 +54,6 @@ const cardValidations = [
         .withMessage('Type must be a positive integer number')
 ];
 
-const { body, validationResult } = require('express-validator');
 router.post("/", ...cardValidations,
     async function (req, res, next) {
         try {

@@ -101,6 +101,7 @@ class Card {
             return { status: 500, result: err };
         }
     }
+    
     static async edit(newInfo) {
         try {
             // Checking if card exist to edit the card
